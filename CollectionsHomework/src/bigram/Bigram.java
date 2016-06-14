@@ -40,6 +40,35 @@ public class Bigram {
 	      }
 	}
 	
+	public String predvidiNaredneKaraktere(HashMap<String, Integer> hm, String string){
+		
+		for (int i = 0; i < 3; i++) {
+			String poslednjeSlovo = string.substring(string.length()-1);
+			
+			
+			Set set = hm.entrySet();
+		    Iterator iterator = set.iterator();
+			int max = 0;
+			String bigram = null;
+			while (iterator.hasNext()) {
+			HashMap.Entry mentry = (HashMap.Entry) iterator.next();
+			String key = (String)mentry.getKey();
+				if (key.startsWith(poslednjeSlovo)) {
+					if ((Integer) mentry.getValue() > max) {
+						bigram = (String) mentry.getKey();
+						max = (Integer) mentry.getValue();
+			 		}
+				}
+			}
+			 
+			string = string.concat(bigram.substring(1));
+			}
+		
+		return string;
+	}
+
+	
+	
 	public static void main(String[] args) {
 
 		String ulazniString = "abbcceeeeeeabcc";
@@ -49,6 +78,9 @@ public class Bigram {
 		
 		bigram.upisiUMapu(ulazniString, hm);
 		bigram.ispisiMapu(hm);
+		System.out.println("Naredna tri karaktera su: "+bigram.predvidiNaredneKaraktere(hm, "ja"));
+		
+		
 	}
 
 }
